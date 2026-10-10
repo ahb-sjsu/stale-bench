@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[test]" ruff
+      - run: ruff check src tests entries tools
+      - run: pytest -q
+
+  score-entries:
+    # Scores any entry file added or changed by a pull request on the public dev set.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e .
+      - name: score changed entries
+        run: |
+          mkdir -p results/pr
+          files=$(git diff --name-only --diff-filter=AM origin/${{ github.base_ref }}...HEAD -- 'entries/*.py')
+          for f in $files; do
+            cls=$(python -c "import ast,sys;t=ast.parse(open(sys.argv[1]).read());print(next(n.name for n in t.body if isinstance(n,ast.ClassDef)))" "$f")
+            echo "scoring $f:$cls"
+            timeout 3600 stale-bench run "$f:$cls" --isolate --out "results/pr/$(basename "$f" .py).json"
+          done
+          ls results/pr/*.json >/dev/null 2>&1 && stale-bench leaderboard results/pr/*.json >> "$GITHUB_STEP_SUMMARY" || echo "no entries changed"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: scores
+          path: results/pr
+          if-no-files-found: ignore

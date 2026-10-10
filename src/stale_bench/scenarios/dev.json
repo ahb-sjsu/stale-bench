@@ -1,0 +1,298 @@
+{
+ "version": 1,
+ "scenarios": [
+  {
+   "name": "s1-slow-age2",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.01
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "records stay informative"
+  },
+  {
+   "name": "s1-slow-age8",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.01
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 8
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": ""
+  },
+  {
+   "name": "s1-mid-age2",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.05
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": ""
+  },
+  {
+   "name": "s1-mid-age-jitter",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.05
+   },
+   "age": {
+    "kind": "geometric",
+    "base": 1,
+    "p": 0.3
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "record age varies from epoch to epoch"
+  },
+  {
+   "name": "s1-fast-age2",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.2
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "records carry little information"
+  },
+  {
+   "name": "s1-loose-budget",
+   "set": "S1",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.02
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.2,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": ""
+  },
+  {
+   "name": "s2-scarce",
+   "set": "S2",
+   "generator": {
+    "kind": "markov_asym",
+    "p_on": 0.01,
+    "p_off": 0.03
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "available a quarter of the time"
+  },
+  {
+   "name": "s2-heavy-tail",
+   "set": "S2",
+   "generator": {
+    "kind": "semi_markov",
+    "mean_on": 40,
+    "mean_off": 20,
+    "sigma": 1.5
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "lognormal holding times"
+  },
+  {
+   "name": "s2-regime",
+   "set": "S2",
+   "generator": {
+    "kind": "regime",
+    "p_slow": 0.005,
+    "p_fast": 0.3,
+    "p_switch": 0.002
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 4
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "hidden slow and fast phases"
+  },
+  {
+   "name": "s2-late-labels",
+   "set": "S2",
+   "generator": {
+    "kind": "markov_sym",
+    "p": 0.02
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "uniform",
+    "low": 10,
+    "high": 40
+   },
+   "budget": 0.05,
+   "burst": 3,
+   "dt": 2.0,
+   "T": 20000,
+   "runs": 3,
+   "notes": "outcomes arrive 10 to 40 epochs late"
+  },
+  {
+   "name": "s3-square",
+   "set": "S3",
+   "generator": {
+    "kind": "trace",
+    "dir": "s3/square"
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "budget": 0.1,
+   "burst": 2,
+   "dt": 1.15,
+   "T": 0,
+   "runs": 0,
+   "notes": "controlled runs on an organizer-owned two-GPU workstation with synthetic competitor jobs; one run per trace file"
+  },
+  {
+   "name": "s3-poisson",
+   "set": "S3",
+   "generator": {
+    "kind": "trace",
+    "dir": "s3/poisson"
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "budget": 0.1,
+   "burst": 2,
+   "dt": 1.16,
+   "T": 0,
+   "runs": 0,
+   "notes": "controlled runs on an organizer-owned two-GPU workstation with synthetic competitor jobs; one run per trace file"
+  },
+  {
+   "name": "s3-markov",
+   "set": "S3",
+   "generator": {
+    "kind": "trace",
+    "dir": "s3/markov"
+   },
+   "age": {
+    "kind": "fixed",
+    "value": 2
+   },
+   "label_delay": {
+    "kind": "fixed",
+    "value": 3
+   },
+   "budget": 0.1,
+   "burst": 2,
+   "dt": 2.14,
+   "T": 0,
+   "runs": 0,
+   "notes": "controlled runs on an organizer-owned two-GPU workstation with synthetic competitor jobs; one run per trace file"
+  }
+ ]
+}

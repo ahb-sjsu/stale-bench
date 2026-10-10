@@ -1,0 +1,9 @@
+# organizer-only material: hidden traces, embargoed analysis
+embargo/
+results/private/
+logs/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+build/
+dist/
