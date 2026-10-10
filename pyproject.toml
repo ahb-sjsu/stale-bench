@@ -9,7 +9,7 @@ description = "Replay harness for admission decisions made from stale capacity r
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-authors = [{ name = "STALE workshop organizers" }]
+authors = [{ name = "Andrew H. Bond" }]
 dependencies = ["numpy>=1.24", "scipy>=1.10"]
 classifiers = [
   "Programming Language :: Python :: 3",
